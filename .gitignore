@@ -30,3 +30,13 @@
 *.exe
 *.out
 *.app
+
+# Bazel
+bazel-*
+MODULE.bazel.lock
+
+# CLion, PyCharm
+.idea/
+.clwb/
+
+third_party

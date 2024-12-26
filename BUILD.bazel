@@ -1,0 +1,42 @@
+load("@buildifier_prebuilt//:rules.bzl", "buildifier")
+
+package(default_visibility = ["//visibility:public"])
+
+# bazel run //:buildifier
+# .. or warn
+buildifier(
+    name = "buildifier",
+    exclude_patterns = [
+        "./bazel-*/*",
+        "./.git/*",
+    ],
+    lint_mode = "fix",
+)
+
+cc_library(
+    name = "qt_core",
+    hdrs = glob(["third_party/qt/include/QtCore/**/*.h"]),
+    linkopts = ["-lQt5Core"],
+)
+
+cc_library(
+    name = "qt_widgets",
+    hdrs = glob(["third_party/qt/include/QtWidgets/**/*.h"]),
+    linkopts = ["-lQt5Widgets"],
+    deps = [":qt_core"],
+)
+
+# The reason for copts = ["-I/usr/include/x86_64-linux-gnu/qt5"]
+# because QT include convention has includes with angle brackets and
+# relative hdrs attributes in libraries cannot resolve these headers.
+cc_binary(
+    name = "hello_main",
+    srcs = [":hello_main.cc"],
+    copts = ["-I/usr/include/x86_64-linux-gnu/qt5"],
+    deps = [
+        ":qt_core",
+        ":qt_widgets",
+        "@gflags",
+        "@glog",
+    ],
+)
