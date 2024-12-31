@@ -19,3 +19,18 @@ QT goodies on the local machine, and so what's the point of hermetic build?
 Given an existing QT installation on local machine, it is just a matter of setup symlinks to include and shared libraries.
 To make symlinking before build ended up tricky. Bazel `genrule` wants to list all include files and not just a directory.
 There are other multiple ways other than `genrule` but it quickly became convoluted. 
+
+The easiest way of setting up QT on Ubuntu with Bazel integration
+
+1. ```
+   sudo apt update
+   sudo apt install qt6-base-dev qt6-tools-dev qt6-tools-dev-tools qt6-base-examples qtbase6-doc-html
+   ``` 
+2. `./setup_qt`
+3. Adjust `copts` if needed
+
+The other types of installing QT through online installer or through sources is problematic.
+Qt must be installed under `/usr` and not under `/usr/local` or home directory the reason being is that
+Bazel `copts` requires `\usr` directory (or maybe `opts`, I haven't tried that) and not home directory and even not `/usr/local`.
+ 
+With this setup it is the simplest and the most straightforward way to integrate with Bazel.

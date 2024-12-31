@@ -14,28 +14,22 @@ buildifier(
 )
 
 cc_library(
-    name = "qt_core",
-    hdrs = glob(["third_party/qt/include/QtCore/**/*.h"]),
-    linkopts = ["-lQt5Core"],
+   name = "qt",
+   hdrs = glob(["third_party/qt/include/**/*.h"]),
+   linkopts = ["-lQt6Widgets", "-lQt6Core"],
 )
 
-cc_library(
-    name = "qt_widgets",
-    hdrs = glob(["third_party/qt/include/QtWidgets/**/*.h"]),
-    linkopts = ["-lQt5Widgets"],
-    deps = [":qt_core"],
-)
-
-# The reason for copts = ["-I/usr/include/x86_64-linux-gnu/qt5"]
+# The reason for copts = ["-I/usr/include/x86_64-linux-gnu/qt6"].
+# It should be in cc_binary or in .bazelrc
 # because QT include convention has includes with angle brackets and
 # relative hdrs attributes in libraries cannot resolve these headers.
+# This won't work for /usr/local, home directory or symlinks.
+# Moving copts to qt library won't work.
 cc_binary(
     name = "hello_main",
     srcs = [":hello_main.cc"],
-    copts = ["-I/usr/include/x86_64-linux-gnu/qt5"],
     deps = [
-        ":qt_core",
-        ":qt_widgets",
+        ":qt",
         "@gflags",
         "@glog",
     ],
