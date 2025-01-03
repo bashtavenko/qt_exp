@@ -5,7 +5,6 @@
 #include <QtWidgets/QMainWindow>
 #include <QtWidgets/QLabel>
 
-
 int main(int argc, char** argv) {
   google::InitGoogleLogging(*argv);
   gflags::ParseCommandLineFlags(&argc, &argv, /*remove_flags=*/true);

@@ -40,3 +40,6 @@ MODULE.bazel.lock
 .clwb/
 
 third_party
+
+qt_generated/*.cc
+

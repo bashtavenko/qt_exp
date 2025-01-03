@@ -24,7 +24,10 @@ The easiest way of setting up QT on Ubuntu with Bazel integration
 
 1. ```
    sudo apt update
-   sudo apt install qt6-base-dev qt6-tools-dev qt6-tools-dev-tools qt6-base-examples qtbase6-doc-html
+   sudo apt install qt6-base-dev qt6-tools-dev \
+    qt6-tools-dev-tools qt6-base-examples \
+    qtbase6-doc-html qt6-declarative-dev \
+    qt6-declarative-dev-tools
    ``` 
 2. `./setup_qt`
 3. Adjust `copts` if needed
@@ -34,3 +37,16 @@ Qt must be installed under `/usr` and not under `/usr/local` or home directory t
 Bazel `copts` requires `\usr` directory (or maybe `opts`, I haven't tried that) and not home directory and even not `/usr/local`.
  
 With this setup it is the simplest and the most straightforward way to integrate with Bazel.
+
+## Integration QML with Bazel
+
+Seamless integration of QML into Bazel requires some time. On the high
+level it requires two major steps:
+
+1. Run RCC to produce source qrc resource file from source qml.
+2. Run RCC again with both files to generate a cc stub
+
+Then add the generated cc stub to the main binary and finaly add qml file to binary data.
+
+Quick and dirty solution is to [run_rcc.sh](run_rcc.sh) before main binary.
+

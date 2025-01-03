@@ -14,9 +14,15 @@ buildifier(
 )
 
 cc_library(
-   name = "qt",
-   hdrs = glob(["third_party/qt/include/**/*.h"]),
-   linkopts = ["-lQt6Widgets", "-lQt6Core"],
+    name = "qt",
+    hdrs = glob(["third_party/qt/include/**/*.h"]),
+    linkopts = [
+        "-lQt6Widgets",
+        "-lQt6Core",
+        "-lQt6Gui",
+        "-lQt6Quick",
+        "-lQt6Qml",
+    ],
 )
 
 # The reason for copts = ["-I/usr/include/x86_64-linux-gnu/qt6"].
@@ -28,6 +34,34 @@ cc_library(
 cc_binary(
     name = "hello_main",
     srcs = [":hello_main.cc"],
+    deps = [
+        ":qt",
+        "@gflags",
+        "@glog",
+    ],
+)
+
+genrule(
+    name = "generate_qrc",
+    srcs = ["hello.qml"],
+    outs = ["hello.qrc"],
+    cmd = """
+    echo '<!DOCTYPE RCC>' > $@
+    echo '<RCC version="1.0">' >> $@
+    echo '<qresource prefix="/">' >> $@
+    echo '    <file>hello.qml</file>' >> $@
+    echo '</qresource>' >> $@
+    echo '</RCC>' >> $@
+    """,
+)
+
+cc_binary(
+    name = "hello_qt_main",
+    srcs = [
+        "//qt_generated",
+        "hello_qt_main.cc",
+    ],
+    data = ["hello.qml"],
     deps = [
         ":qt",
         "@gflags",
