@@ -56,10 +56,10 @@ genrule(
 )
 
 cc_binary(
-    name = "hello_qt_main",
+    name = "hello_qml_main",
     srcs = [
         "//qt_generated",
-        "hello_qt_main.cc",
+        "hello_qml_main.cc",
     ],
     data = ["hello.qml"],
     deps = [

@@ -9,13 +9,6 @@ int main(int argc, char **argv) {
   gflags::SetCommandLineOption("logtostderr", "1");
 
   QGuiApplication app(argc, argv);
-  QQmlApplicationEngine engine;
-  engine.load(QUrl::fromLocalFile("hello.qml"));
-  if (engine.rootObjects().isEmpty()) {
-    LOG(ERROR) << "Failed to load QML";
-    return EXIT_FAILURE;
-  }
-
+  QQmlApplicationEngine engine("hello.qml");
   return app.exec();
 }
-
