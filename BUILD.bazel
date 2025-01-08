@@ -41,20 +41,6 @@ cc_binary(
     ],
 )
 
-genrule(
-    name = "generate_qrc",
-    srcs = ["hello.qml"],
-    outs = ["hello.qrc"],
-    cmd = """
-    echo '<!DOCTYPE RCC>' > $@
-    echo '<RCC version="1.0">' >> $@
-    echo '<qresource prefix="/">' >> $@
-    echo '    <file>hello.qml</file>' >> $@
-    echo '</qresource>' >> $@
-    echo '</RCC>' >> $@
-    """,
-)
-
 cc_binary(
     name = "hello_qml_main",
     srcs = [

@@ -40,13 +40,6 @@ With this setup it is the simplest and the most straightforward way to integrate
 
 ## Integration QML with Bazel
 
-Seamless integration of QML into Bazel requires some time. On the high
-level it requires two major steps:
-
-1. Run RCC to produce source qrc resource file from source qml.
-2. Run RCC again with both files to generate a cc stub
-
-Then add the generated cc stub to the main binary and finaly add qml file to binary data.
-
-Quick and dirty solution is to [run_rcc.sh](run_rcc.sh) before main binary.
+Quick and dirty solution is to [run_rcc.sh](run_rcc.sh) before main binary which generates 
+resource file stub. It requires qml file be a part of binary data. 
 
