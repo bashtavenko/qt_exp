@@ -7,4 +7,5 @@ if [ ! -L "$QT_DIR/include" ] || [ ! -e "$QT_DIR/include" ]; then
     mkdir -p "$QT_DIR"
     ln -sf /usr/include/x86_64-linux-gnu/qt6/ "$QT_DIR/include"
     ln -sf /usr/lib/x86_64-linux-gnu/libQt6*.so "$QT_DIR/"
+    ln -sf /usr/lib/x86_64-linux-gnu/qt6/qml "$QT_DIR/qml"
 fi

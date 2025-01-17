@@ -17,11 +17,13 @@ cc_library(
     name = "qt",
     hdrs = glob(["third_party/qt/include/**/*.h"]),
     linkopts = [
+        "-lQt6Charts",
         "-lQt6Widgets",
         "-lQt6Core",
         "-lQt6Gui",
         "-lQt6Quick",
         "-lQt6Qml",
+        "-Ithird_party/qt/qml"
     ],
 )
 
@@ -53,4 +55,11 @@ cc_binary(
         "@gflags",
         "@glog",
     ],
+)
+
+cc_binary(
+    name = "hello_quickview_main",
+    srcs = ["hello_quickview_main.cc"],
+    data = ["hello_quickview.qml"],
+    deps = ["@glog", "@gflags", ":qt"],
 )

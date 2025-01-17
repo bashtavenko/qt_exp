@@ -10,5 +10,6 @@ int main(int argc, char **argv) {
 
   QGuiApplication app(argc, argv);
   QQmlApplicationEngine engine("hello.qml");
+//  engine.addImportPath("third_party/qt/qml");
   return app.exec();
 }
