@@ -1,4 +1,5 @@
 #!/bin/bash
+# Run this if any QML files changes.
 
-FILE_BASE="hello_quickview"
-rcc ${FILE_BASE}.qrc -o qt_generated/${FILE_BASE}_res.cc
+rcc -name combined combined.qrc -o qt_generated/combined_res.cc
+

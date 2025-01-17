@@ -1,6 +1,7 @@
 <!DOCTYPE RCC>
 <RCC version="1.0">
     <qresource prefix="/">
+        <file>hello.qml</file>
         <file>hello_quickview.qml</file>
     </qresource>
 </RCC>

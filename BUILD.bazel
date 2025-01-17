@@ -23,7 +23,6 @@ cc_library(
         "-lQt6Gui",
         "-lQt6Quick",
         "-lQt6Qml",
-        "-Ithird_party/qt/qml"
     ],
 )
 
@@ -46,8 +45,8 @@ cc_binary(
 cc_binary(
     name = "hello_qml_main",
     srcs = [
-        "//qt_generated",
         "hello_qml_main.cc",
+        "//qt_generated",
     ],
     data = ["hello.qml"],
     deps = [
@@ -61,5 +60,9 @@ cc_binary(
     name = "hello_quickview_main",
     srcs = ["hello_quickview_main.cc"],
     data = ["hello_quickview.qml"],
-    deps = ["@glog", "@gflags", ":qt"],
+    deps = [
+        ":qt",
+        "@gflags",
+        "@glog",
+    ],
 )
